@@ -29,7 +29,6 @@ Rabbi-Rabbit helps learners of the Hebrew language through a clean and interacti
 
 ## Related Repos
 
-- [Native Mobile App](https://github.com/Rabbi-Rabbit/react-native-mobile-app)
 - [Desktop Web App](https://github.com/Rabbi-Rabbit/frontend-react-desktop)
 - [Mongo Database and Server](https://github.com/Rabbi-Rabbit/mongo-db-node-server)
 
