@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import axiosWithAuth from "../Auth/axiosWithAuth";
 
 export default function Lessons(props) {
-  const { user, setUser, vocab, setShowNav } = props;
+  const { user, setUser, vocab } = props;
   const [index, setIndex] = useState(0);
   const [addVocab, setAddVocab] = useState([]);
   const [userLessons, setUserLessons] = useState([]);
@@ -15,7 +15,6 @@ export default function Lessons(props) {
   let previousArrow = "<";
 
   useEffect(() => {
-    setShowNav(false); // set showNav to false to hide the nav bar while on the lessons page
     // if the user lessons array is not empty and the vocab array is not empty and the userLessons array is empty
     if (user.user_lessons && vocab.length > 0 && userLessons.length === 0) {
       // filter the vocab array to only include words that are in the user lessons array based on the id
@@ -57,7 +56,6 @@ export default function Lessons(props) {
     // if there is no current word or the number of lessons viewed is 0
     if (!currentWord || lessonsViewed === 0) {
       history.push("/"); // redirect to the dashboard
-      setShowNav(true); // set showNav to true to show the nav bar
       return; // exit the function
     }
     let newVocab = [
@@ -85,7 +83,6 @@ export default function Lessons(props) {
       })
       .finally(() => {
         history.push("/");
-        setShowNav(true);
       });
   }
 

@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 //Auth
 import axiosWithAuth from "./components/Auth/axiosWithAuth";
 import AuthForm from "./components/Auth/AuthForm";
@@ -25,6 +25,8 @@ import Lessons from "./components/UserPages/Lessons";
 import Reviews from "./components/UserPages/Reviews/ReviewsPage";
 
 function App() {
+  const location = useLocation();
+  
   //initialize auth state based on token presence to prevent flashing
   const [auth, setAuth] = useState(() => {
     return !!localStorage.getItem("token");
@@ -34,8 +36,13 @@ function App() {
   const [vocab, setVocab] = useState([]);
   const [lesson1, setLesson1] = useState([]);
   const [selectedLesson, setSelectedLesson] = useState("");
-  const [showNav, setShowNav] = useState(true);
   const [availableReviews, setAvailableReviews] = useState([]);
+
+  // routes where navigation should be hidden
+  const routesWithoutNav = ["/lessons", "/reviews"];
+
+  // determine if nav should be shown based on current route
+  const showNav = !routesWithoutNav.includes(location.pathname);
 
   useEffect(() => {
     getVocab(); //runs on page load
@@ -218,7 +225,6 @@ function App() {
             user={user}
             setUser={setUser}
             vocab={vocab}
-            setShowNav={setShowNav}
           />
         </Route>
         <Route path="/reviews">
@@ -226,7 +232,6 @@ function App() {
             user={user}
             setUser={setUser}
             vocab={vocab}
-            setShowNav={setShowNav}
             availableReviews={availableReviews}
             getAvailableReviews={getAvailableReviews}
             combineArrays={combineArrays}
